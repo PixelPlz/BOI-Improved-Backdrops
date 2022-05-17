@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>!A improved backdrops</name>
+    <directory>!!! improved backdrops</directory>
+    <id>2751333905</id>
+    <description>-- PLEASE READ --
+
+Make sure to restart the game post-launch after installing or after enabling / disabling the mod otherwise it will not work properly!
+
+This mod will not work with pretty much all other mods that change backdrops!
+
+This mod WILL WORK WITH AND WITHOUT CUSTOM STAGEAPI
+
+Works with Mod Config Menu, allowing you to disable certain features
+
+Best used with:
+Nioffe's Better Doors (it has unique sprites for this mod!) or my custom doors
+Darker Hell
+Mega Satan's Bling
+my custom devil and angel statues
+
+
+-- New things --
+- most main path levels have unique boss (and mini boss) room sprites
+- some floors can have unique detail sprites (similar to the hanging chains in Gehenna or lanterns in the Mines)
+- Catacombs is now actually distinguishable from the Caves
+- Cathedral has new walls and better floor variation + big rooms have proper trims like small ones do
+- the Gehenna backdrop now has 3 different types + unique post Mom's heart version
+- new Burning Basement and Necropolis variant
+- new designs for Angel rooms, Arcades, Devil rooms, Curse rooms
+- new alternate path entrances
+
+-- Changes --
+- improved backdrop sprites for: Cellar, Mines, Depths, Dank Depths, Womb, Scarred Womb, Sheol, Libraries, Shops, Dice rooms, Isaac's / Barren rooms, Secret rooms
+- improved lighting and overlay effects for Flooded Caves, Dank Depths, Mausoleum, Gehenna, Cathedral, Dark Room
+- double door locks and lock blocks open faster
+- more fitting props / colours for rocks / pits for some floors
+- improved water effects for several floors
+- blood filled rooms in the Scarred Womb now have bloody rocks and spikes
+- the Dark Room now has proper bottoms for thin and L shaped rooms
+- the blowing ash overlay in Ashpit is more transparent
+- the Womb overlay is way less intense
+- blood filled rooms in the Corpse have better floor visibility
+
+
+Planned additions:
+- more unique boss rooms
+- improved Cellar
+- fiend folio rocks / pits compatibility (stop asking!)
+
+
+Thank you to:
+Nioffe for letting me use some things from their Backgrounds and Doors mod
+TheSavageHybrid for providing the base for the alternate Burning Basement backdrop
+Aleku for the better Basement backdrop they provided
+BeGrapa for letting me use their fixed pits v2 mod</description>
+    <version>1.25</version>
+    <visibility>Public</visibility>
+    <tag id="Rooms"/>
+    <tag id="Floors"/>
+    <tag id="Hazards"/>
+    <tag id="Tweaks"/>
+    <tag id="Graphics"/>
+    <tag id="Shaders"/>
+</metadata>

@@ -1,0 +1,9 @@
+<entities anm2root="gfx/" version="5">	
+	<entity anm2path="backdrop/custom/overlay.anm2" subtype="2727" id="1000" name="Improved Backdrops - Persistent Entity" variant="120"/>
+	
+	<entity anm2path="backdrop/custom/walls.anm2" subtype="2727" id="1000" name="Improved Backdrops - Backdrop Entity" variant="140"/>
+	<entity anm2path="backdrop/custom/corner_extras.anm2" subtype="2728" id="1000" name="Improved Backdrops - Corner Detail" variant="140"/>
+	<entity anm2path="backdrop/custom/wall_L_inner.anm2" subtype="2729" id="1000" name="Improved Backdrops - L Inner" variant="140"/>
+	<entity anm2path="backdrop/custom/floor.anm2" subtype="2730" id="1000" name="Improved Backdrops - Floor Extra" variant="140"/>
+	<entity anm2path="backdrop/custom/boss_darkroom_walls.anm2" subtype="2731" id="1000" name="Improved Backdrops - Dark Room Walls" variant="140"/>
+</entities>
