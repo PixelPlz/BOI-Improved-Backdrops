@@ -3,15 +3,16 @@
     <name>!A improved backdrops</name>
     <directory>!!! improved backdrops</directory>
     <id>2751333905</id>
-    <description>-- PLEASE READ --
+    <description>-- PLEASE READ! --
 
-Make sure to restart the game post-launch after installing or after enabling / disabling the mod otherwise it will not work properly!
+Make sure to restart the game when first installing or after enabling / disabling, otherwise the mod will not work properly!
 
-This mod will not work with pretty much all other mods that change backdrops!
 
-This mod WILL WORK WITH AND WITHOUT CUSTOM STAGEAPI
+The mod will not work with most other mods that change backdrops!
+Works with and without StageAPI.
 
-Works with Mod Config Menu, allowing you to disable certain features
+You can use Mod Config Menu to toggle certain features!
+(If you use other mods that have custom rocks, make sure to disable this mod's custom ones with it!)
 
 Best used with:
 Nioffe's Better Doors (it has unique sprites for this mod!) or my custom doors
@@ -20,41 +21,38 @@ Mega Satan's Bling
 my custom devil and angel statues
 
 
--- New things --
-- most main path levels have unique boss (and mini boss) room sprites
+----------------------------
+
+
+-- Additions --
+- most main path levels have unique boss (and mini boss) rooms
 - some floors can have unique detail sprites (similar to the hanging chains in Gehenna or lanterns in the Mines)
-- Catacombs is now actually distinguishable from the Caves
-- Cathedral has new walls and better floor variation + big rooms have proper trims like small ones do
-- the Gehenna backdrop now has 3 different types + unique post Mom's heart version
-- new Burning Basement and Necropolis variant
-- new designs for Angel rooms, Arcades, Devil rooms, Curse rooms
+- new Cathedral
+- new Mausoleum based on the cut mini-floor from Antibirth
+- new Catacombs
+- new Burning Basement
+- more variants for Caves, Necropolis, Gehenna, Womb, Sheol, Libraries
+- new Angel and Devil rooms
+- new Arcades
+- new Challenge rooms
 - new alternate path entrances
+- new Black Markets
 
 -- Changes --
-- improved backdrop sprites for: Cellar, Mines, Depths, Dank Depths, Womb, Scarred Womb, Sheol, Libraries, Shops, Dice rooms, Isaac's / Barren rooms, Secret rooms
-- improved lighting and overlay effects for Flooded Caves, Dank Depths, Mausoleum, Gehenna, Cathedral, Dark Room
-- double door locks and lock blocks open faster
-- more fitting props / colours for rocks / pits for some floors
-- improved water effects for several floors
-- blood filled rooms in the Scarred Womb now have bloody rocks and spikes
-- the Dark Room now has proper bottoms for thin and L shaped rooms
-- the blowing ash overlay in Ashpit is more transparent
-- the Womb overlay is way less intense
-- blood filled rooms in the Corpse have better floor visibility
+- improved backdrop sprites for: Basement, Cellar, Mines, Depths, Dank Depths, Scarred Womb, Blue Womb, Dark Room, Shops, Dice rooms, Isaac's / Barren rooms, Secret rooms, Planetariums, Curse Rooms
+- improved lighting and overlay effects for Downpour, Flooded Caves, Mines, Ashpit, Depths, Dank Depths, Gehenna, Womb, Blue Womb, Dark Room
+- more fitting props / rocks / pits / spikes for a lot of floors
 
 
-Planned additions:
-- more unique boss rooms
-- improved Cellar
-- fiend folio rocks / pits compatibility (stop asking!)
+----------------------------
 
 
 Thank you to:
-Nioffe for letting me use some things from their Backgrounds and Doors mod
-TheSavageHybrid for providing the base for the alternate Burning Basement backdrop
-Aleku for the better Basement backdrop they provided
-BeGrapa for letting me use their fixed pits v2 mod</description>
-    <version>1.25</version>
+Aleku for the better Basement backdrop
+Nioffe for letting me use some assets from their Backgrounds and Doors mod
+TheSavageHybrid for the base for the new Burning Basement
+BeGrapa for letting me include fixed pits v2</description>
+    <version>2.1</version>
     <visibility>Public</visibility>
     <tag id="Rooms"/>
     <tag id="Floors"/>
