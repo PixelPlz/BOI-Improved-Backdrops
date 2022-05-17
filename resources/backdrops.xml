@@ -120,7 +120,7 @@
 		bridge		= "grid_bridge_womb.png"
 		door		= "door_25_wombdoor.png"
 		holeinwall	= "door_08_holeinwall_womb.png"
-		waterpitsmode	= "1"
+		waterpitsmode	= "2"
 	/>
 	
 	<backdrop id="11" gfx="08_Utero.png" walls="1" wallvariants="6" floors="1" floorvariants="6"
@@ -289,7 +289,6 @@
 		waterpit	= "grid_pit_blood_sacrifice.png"
 		bridge		= "grid_bridge_necropolis.png"
 		door		= "door_14_depthsdoor.png"
-		spikes		= "grid_spikes_bloody.png"
 		holeinwall	= "door_08_holeinwall_depths.png"
 		waterpitsmode	= "2"
 	/>
@@ -450,7 +449,6 @@
 		bridge		= "grid_bridge_corpse3.png"
 		door		= "door_01_corpse3door.png"
 		holeinwall	= "door_08_holeinwall.png"
-		spikes		= "grid_spikes_bloody.png"
 	/>
 	
 	<backdrop id="45"  gfx="02x_Dross.png" walls="4" wallvariants="2" floors="3" floorvariants="1"

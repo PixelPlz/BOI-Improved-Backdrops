@@ -5,9 +5,8 @@
 <fxLayers gfxroot="gfx/">
  <fx id="4" path="backdrop/8bitclouds_643.png" numLayers="3" xMin="0.4" xMax="0.6" yMin="0.4" yMax="0.6" layer="foreground" stage="1" altStages="4" /> <!-- use for burning basement -->
  <fx id="100" path="backdrop/mist_strong.png" numLayers="2" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="1" altStages="16" /> <!-- use for downpour -->
- <fx id="101" path="backdrop/8bitclouds_64.png" numLayers="1" xMin="0.1" xMax="1" yMin="-0.5" yMax="0.5" layer="foreground" stage="1" altStages="16" /> <!-- use for downpour -->
- <fx id="110" path="backdrop/8bitclouds_64.png" numLayers="1" xMin="0.1" xMax="1" yMin="-0.5" yMax="0.5" layer="foreground" stage="2" altStages="7" /> <!-- use for caves/catacombs/flooded caves -->
- <fx id="111" path="backdrop/mist_faint.png" numLayers="2" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="2" altStages="4" /> <!-- use for flooded caves -->
+ <fx id="110" path="backdrop/8bitclouds_64.png" numLayers="1" xMin="0.1" xMax="1" yMin="-0.5" yMax="0.5" layer="foreground" stage="2" altStages="3" /> <!-- use for caves/catacombs -->
+ <fx id="111" path="backdrop/mist_faint.png" numLayers="3" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="2" altStages="4" /> <!-- use for flooded caves -->
  <fx id="112" path="backdrop/8bitclouds_643.png" numLayers="2" xMin="0.5" xMax="1" yMin="0.5" yMax="1" layer="foreground" stage="2" altStages="16" /> <!-- use for mines -->
  <fx id="113" path="backdrop/8bitclouds_64_embers.png" numLayers="1" xMin="1.25" xMax="1.75" yMin="1.25" yMax="1.75" layer="foreground" stage="2" altStages="48" onlyDefaultBackdrop="true" /> <!-- use for mines/ashpit -->
  <fx id="0" path="backdrop/8bitclouds_64.png" numLayers="3" xMin="0.1" xMax="0.6" yMin="-0.5" yMax="0.5" layer="foreground" stage="3" altStages="3" /> <!-- use for depths/necropolis -->

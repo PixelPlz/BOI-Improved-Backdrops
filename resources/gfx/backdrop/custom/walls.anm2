@@ -1,9 +1,9 @@
 <AnimatedActor>
-	<Info CreatedBy="trtv" CreatedOn="2022-05-17 15:30:28" Version="35" Fps="30"/>
+	<Info CreatedBy="trtv" CreatedOn="2022-05-17 19:05:11" Version="36" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="nil.png" Id="0"/>
-			<Spritesheet Path="ihv_cathedral.png" Id="1"/>
+			<Spritesheet Path="nil.png" Id="1"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="main" Id="0" SpritesheetId="0"/>
