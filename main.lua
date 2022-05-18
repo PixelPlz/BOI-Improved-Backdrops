@@ -433,17 +433,6 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
 
 
 
-function mod:testmcgee(Type, Variant, SubType, GridIndex, Seed)
-	local roomDesc = game:GetLevel():GetRoomByIdx(game:GetLevel():GetCurrentRoomIndex() + 1)
-	
-	if game:GetRoom():IsFirstVisit() then
-		
-	end
-end
-mod:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN, mod.testmcgee)
-
-
-
 -- Custom walls
 function IBackdropsCustomBG(sheet, type)
 	local shape = game:GetRoom():GetRoomShape()
@@ -504,7 +493,7 @@ end
 
 -- Persistent entity
 function mod:IBackdropsPersistentEntity(entity)
-	if entity.SubType == 2727 and entity.FrameCount == 0 then
+	if entity.SubType == 2727 and entity.FrameCount == 0 and config.cooloverlays == true then
 		local sprite = entity:GetSprite()
 		local bg = game:GetRoom():GetBackdropType()
 
@@ -534,40 +523,38 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.IBackdropsPersistentEnti
 
 -- Get overlay decor positions
 function IBackdropsTopDecorPositions(shape)
-	if config.cooloverlays == true then
-		local values = {}
+	local values = {}
+	
+	if shape == IV or shape == IIV then
+		table.insert(values, {0, 140, false}) -- left
+		table.insert(values, {1, 500, false}) -- right
 		
-		if shape == IV or shape == IIV then
-			table.insert(values, {0, 140, false}) -- left
-			table.insert(values, {1, 500, false}) -- right
+	else
+		local thin = false
+		local extra = 0
+		if shape == IH or shape == IIH then
+			thin = true
+		elseif shape == LTL then
+			extra = 520
+		end
+		
+		table.insert(values, {0, -20 + extra, thin}) -- left
+		table.insert(values, {2, 180 + extra, thin}) -- extra left
+
+		if shape == long or shape == big or shape == LBL or shape == LBR or shape == IIH then
+			table.insert(values, {2, 380, thin}) -- extra left
+			table.insert(values, {3, 780, thin}) -- extra right
+			table.insert(values, {3, 980, thin}) -- extra right
+			table.insert(values, {1, 1180, thin}) -- right
 			
 		else
-			local thin = false
-			local extra = 0
-			if shape == IH or shape == IIH then
-				thin = true
-			elseif shape == LTL then
-				extra = 520
-			end
-			
-			table.insert(values, {0, -20 + extra, thin}) -- left
-			table.insert(values, {2, 180 + extra, thin}) -- extra left
-
-			if shape == long or shape == big or shape == LBL or shape == LBR or shape == IIH then
-				table.insert(values, {2, 380, thin}) -- extra left
-				table.insert(values, {3, 780, thin}) -- extra right
-				table.insert(values, {3, 980, thin}) -- extra right
-				table.insert(values, {1, 1180, thin}) -- right
-				
-			else
-				table.insert(values, {1, 660 + extra, thin}) -- right
-				table.insert(values, {3, 460 + extra, thin}) -- extra right
-			end
+			table.insert(values, {1, 660 + extra, thin}) -- right
+			table.insert(values, {3, 460 + extra, thin}) -- extra right
 		end
-		
-		for i, entry in pairs(values) do
-			IBackdropsSpawnTopDecor(entry[1], entry[2], entry[3])
-		end
+	end
+	
+	for i, entry in pairs(values) do
+		IBackdropsSpawnTopDecor(entry[1], entry[2], entry[3])
 	end
 end
 
