@@ -195,7 +195,7 @@ function mod:IBackdropsEnterRoom()
 		-- Sheol / Sheol backdrop special rooms
 		elseif bg == BackdropType.SHEOL then
 			if IBackdropsIsValidBossRoom() == true or (config.udevil == true and rtype == RoomType.ROOM_DEVIL) then
-				IBackdropsCustomBG("boss_devil_1")
+				IBackdropsCustomBG("devil_1")
 				
 			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE then
 				IBackdropsChangeBG(bg, true, "dark")
@@ -313,7 +313,6 @@ function mod:IBackdropsEnterRoom()
 		elseif bg == BackdropType.MINES or bg == BackdropType.MINES_SHAFT then
 			IBackdropsGetGrids("rocks_mines_custom")
 			if IBackdropsIsValidBossRoom() then
-				IBackdropsCustomBG("boss_mines_1")
 				-- Remove decoration sprites that don't fit
 				for i,problematics in pairs(Isaac.GetRoomEntities()) do
 					if problematics.Type == EntityType.ENTITY_EFFECT and problematics.Variant == EffectVariant.BACKDROP_DECORATION then
@@ -322,6 +321,7 @@ function mod:IBackdropsEnterRoom()
 						end
 					end
 				end
+				IBackdropsCustomBG("boss_mines_1")
 			-- Better wall details for IH and IV rooms
 			elseif shape == IH or shape == IIH or shape == IV or shape == IIV then
 				for i,problematics in pairs(Isaac.GetRoomEntities()) do
@@ -373,6 +373,9 @@ function mod:IBackdropsEnterRoom()
 		elseif bg == BackdropType.ASHPIT then
 			if room:HasWaterPits() or (roomDesc.Flags & RoomDescriptor.FLAG_USE_ALTERNATE_BACKDROP > 0) then
 				IBackdropsGetGrids("rocks_ashpit_ash")
+				if (roomDesc.Flags & RoomDescriptor.FLAG_USE_ALTERNATE_BACKDROP > 0) and not room:HasWaterPits() then
+					IBackdropsGetGrids("grid_pit_ashpit_ash", GridEntityType.GRID_PIT)
+				end
 			else
 				IBackdropsGetGrids("rocks_ashpit_custom")
 			end

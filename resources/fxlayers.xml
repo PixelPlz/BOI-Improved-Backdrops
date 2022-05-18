@@ -1,14 +1,13 @@
 <!-- Basement=1, Caves=2, Depths=3, Womb=4, Blue Womb=5, Sheol=6, Chest=7, Void=8, Home=9 -->
 <!-- altStages: Bitmask of 1 << (Original: 0, WOTL: 1, Afterbirth: 2, UNUSED (was Greed Mode): 3, Repentance: 4, Repentance Alt: 5) -->
 
-<!-- Fog/Clouds -->
+<!-- Fog / Clouds -->
 <fxLayers gfxroot="gfx/">
  <fx id="4" path="backdrop/8bitclouds_643.png" numLayers="3" xMin="0.4" xMax="0.6" yMin="0.4" yMax="0.6" layer="foreground" stage="1" altStages="4" /> <!-- use for burning basement -->
  <fx id="100" path="backdrop/mist_strong.png" numLayers="2" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="1" altStages="16" /> <!-- use for downpour -->
  <fx id="110" path="backdrop/8bitclouds_64.png" numLayers="1" xMin="0.1" xMax="1" yMin="-0.5" yMax="0.5" layer="foreground" stage="2" altStages="3" /> <!-- use for caves/catacombs -->
- <fx id="111" path="backdrop/mist_faint.png" numLayers="3" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="2" altStages="4" /> <!-- use for flooded caves -->
- <fx id="112" path="backdrop/8bitclouds_643.png" numLayers="2" xMin="0.5" xMax="1" yMin="0.5" yMax="1" layer="foreground" stage="2" altStages="16" /> <!-- use for mines -->
- <fx id="113" path="backdrop/8bitclouds_64_embers.png" numLayers="1" xMin="1.25" xMax="1.75" yMin="1.25" yMax="1.75" layer="foreground" stage="2" altStages="48" onlyDefaultBackdrop="true" /> <!-- use for mines/ashpit -->
+ <fx id="111" path="backdrop/mist_mid.png" numLayers="3" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="2" altStages="4" /> <!-- use for flooded caves -->
+ <fx id="112" path="backdrop/8bitclouds_643.png" numLayers="1" xMin="0.5" xMax="1" yMin="0.5" yMax="1" layer="foreground" stage="2" altStages="16" /> <!-- use for mines -->
  <fx id="0" path="backdrop/8bitclouds_64.png" numLayers="3" xMin="0.1" xMax="0.6" yMin="-0.5" yMax="0.5" layer="foreground" stage="3" altStages="3" /> <!-- use for depths/necropolis -->
  <fx id="120" path="backdrop/mist_faint.png" numLayers="2" xMin="0.25" xMax="0.5" yMin="0" yMax="0" layer="foreground" stage="3" altStages="1" /> <!-- use for depths -->
  <fx id="1" path="backdrop/8bitclouds_64_black.png" numLayers="3" xMin="0.1" xMax="0.4" yMin="-0.2" yMax="0.2" layer="foreground" stage="3" altStages="4"/> <!-- use for dank depths -->
@@ -27,7 +26,6 @@
  <fx id="201" path="backdrop/blue_overlay.png" numLayers="1" layer="overlay" stage="5" /> <!-- use for blue womb -->
  <fx id="210" path="backdrop/planetarium_overlay.png" numLayers="1" layer="overlay" stage="7" altStages="1" /> <!-- use for dark room -->
  <fx id="220" path="backdrop/planetarium_overlay.png" numLayers="1" layer="overlay" stage="9" /> <!-- use for home -->
- <!-- <fx id="220" path="backdrop/white_overlay.png" numLayers="1" layer="overlay" stage="8" /> void (only works in special rooms) -->
 
 
 <!-- Backgrounds -->
@@ -42,11 +40,7 @@
  
  
 <!-- Water Effects -->
- <fx id="400" path="backdrop/8bitclouds_64_black.png" numLayers="2" xMin="0.1" xMax="0.7" yMin="-0.5" yMax="0.5" layer="underwater" stage="1" altStages="16" /> <!-- downpour -->
  <fx id="17" path="backdrop/pooclouds_thick.png" numLayers="2" xMin="0.1" xMax="0.7" yMin="-0.5" yMax="0.5" layer="underwater" stage="1" altStages="32" /> <!-- dross -->
- <fx id="401" path="backdrop/8bitclouds_64_black.png" numLayers="3" xMin="0.1" xMax="0.7" yMin="-0.5" yMax="0.5" layer="underwater" stage="2" altStages="4" /> <!-- flooded caves -->
- <fx id="402" path="backdrop/8bitclouds_64_black.png" numLayers="2" xMin="0.1" xMax="0.5" yMin="-0.5" yMax="0.5" layer="underwater" stage="4" altStages="52" /> <!-- scarred womb/corpse -->
- 
  
  
  
@@ -349,7 +343,6 @@
 
 
 
-
 <!-- Light Rays -->
 <fxRays>
 	<!-- Basement -->
@@ -382,7 +375,6 @@
 
 
 
-
 <!-- Coloring -->
 <fxParams>
 	<!-- basement/cellar -->
@@ -401,14 +393,14 @@
 	
 	<!-- flooded caves -->
 	<params stage="2" altStages="4">
-		<colorModifier r="1" g="1.2" b="3" a="0.15" brightness="-0.03" contrast="0.96" />
+		<colorModifier r="1" g="1.2" b="3" a="0.15" brightness="-0.027" contrast="0.96" />
 		<shadowColor r="0.06" g="0.1" b="0.1" a="1" />
 		<waterColor r="0.04" g="0.12" b="0.22" a="0.3" rMul="1" gMul="1" bMul="1"/>
 	</params>
 	
 	<!-- depths/necropolis -->
 	<params stage="3" altStages="3">
-		<colorModifier r="0" g="0" b="0" a="0" brightness="-0.01" contrast="1" />
+		<colorModifier r="0" g="0" b="0" a="0" brightness="-0.009" contrast="1" />
 	</params>
 	
 	<!-- dank depths -->
@@ -501,14 +493,14 @@
 	<params stage="3" altStages="16">
 		<shadowColor r="0.035" g="0.07" b="0.03" a="1.0" />
 		<lightColor r="0.8" g="0.6" b="1.25" a="1" />
-		<colorModifier r="0" g="0.7" b="-0.9" a="-0.16" brightness="0" contrast="1.03" />
+		<colorModifier r="0" g="0.7" b="-0.9" a="-0.14" brightness="0" contrast="1.025" />
 	</params>
 	
 	<!-- mausoleum (minifloor)
 	<params stage="3" altStages="16" backdrop="41">
-		<shadowColor r="0.035" g="0.09" b="0.03" a="1.0" />
-		<lightColor r="0.6" g="0.4" b="1.5" a="1" />
-		<colorModifier r="0" g="0.3" b="-1" a="-0.25" brightness="0" contrast="1.05" />
+		<shadowColor r="0.04" g="0.03" b="0.04" a="1.0" />
+		<lightColor r="0.8" g="0.8" b="1" a="1" />
+		<colorModifier r="1" g="1" b="0.3" a="-0.8" brightness="0.005" contrast="1" />
 	</params> -->
 
 	<!-- mausoleum (post mom's heart) -->
@@ -522,7 +514,7 @@
 	<params stage="3" altStages="32" shadowAlpha="0.4">
 		<shadowColor r="0.04" g="0.04" b="0.03" a="1.0" />
 		<lightColor r="1" g="0.8" b="0.8" a="1" />
-		<colorModifier r="0.3" g="1" b="1" a="-0.4" brightness="-0.025" contrast="1.02" />
+		<colorModifier r="0" g="0.88" b="1" a="-0.4" brightness="-0.02" contrast="1.025" />
 		<waterColor r="0.09" g="0.02" b="0.02" a="0.2" rMul="0.9" gMul="0.2" bMul="0.2"/>
 		<waterEffectColor r="1.0" g="0.1" b="0.1" a="1" />
 	</params>
