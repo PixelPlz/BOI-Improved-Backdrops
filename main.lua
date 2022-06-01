@@ -202,7 +202,7 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsCustomBG("curse_" .. tostring((room:GetDecorationSeed() % 2) + 1), "corner")
 				
 			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) then
-				if eternalarenacanappear == 1 then
+				if Eterepeternalarenacanappear == 1 then
 					IBackdropsCustomBG("angel_1")
 					IBackdropsGetGrids("rocks_angel")
 					IBackdropsGetGrids("props_angel", GridEntityType.GRID_DECORATION)
