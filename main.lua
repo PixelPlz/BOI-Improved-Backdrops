@@ -424,7 +424,7 @@ function mod:IBackdropsEnterRoom()
 			IBackdropsTopDecorPositions(shape)
 			
 		-- Dark Room decoration grids
-		elseif bg == BackdropType.DARKROOM and IBackdropsIsValidBossRoom == false then
+		elseif bg == BackdropType.DARKROOM and rtype ~= RoomType.ROOM_BOSS then
 			IBackdropsSpawnDecorGrids(shape)
 		end
 	end
