@@ -98,7 +98,14 @@ function mod:IBackdropsEnterRoom()
 	local level = game:GetLevel()
 	local stage = level:GetStage()
 	local roomDesc = level:GetRoomByIdx(level:GetCurrentRoomIndex())
-	
+
+	-- Fuck fiend folio, I'm a FF hater and I don't care who knows it
+	if FiendFolio then
+		config.customrocks = false
+		config.uchallenge = false
+	end
+
+
 	-- Check if boss room is valid for custom walls
 	function IBackdropsIsValidBossRoom()
 		if config.custombossrooms == true and (rtype == RoomType.ROOM_BOSS or rtype == RoomType.ROOM_MINIBOSS) and stage ~= LevelStage.STAGE7 then
@@ -406,6 +413,16 @@ function mod:IBackdropsEnterRoom()
 						IBackdropsCustomBG("ihv_gehenna")
 					end
 				end
+			end
+		
+		-- Corpse 2
+		elseif bg == BackdropType.CORPSE2 then
+			if not FiendFolio then
+				local pitSheet = "/FFF/grid_pit_corpse2"
+				if room:HasWaterPits() then
+					pitSheet = "/FFF/grid_pit_blood_corpse2"
+				end
+				IBackdropsGetGrids(pitSheet, GridEntityType.GRID_PIT)
 			end
 		end
 		
