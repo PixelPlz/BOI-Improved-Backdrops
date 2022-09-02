@@ -103,6 +103,7 @@ function mod:IBackdropsEnterRoom()
 	if FiendFolio then
 		config.customrocks = false
 		config.uchallenge = false
+		config.ucrawlspace = false
 	end
 
 
@@ -209,17 +210,10 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsCustomBG("curse_" .. tostring((room:GetDecorationSeed() % 2) + 1), "corner")
 				
 			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) then
-				if Eterepeternalarenacanappear == 1 then
-					IBackdropsCustomBG("angel_1")
-					IBackdropsGetGrids("rocks_angel")
-					IBackdropsGetGrids("props_angel", GridEntityType.GRID_DECORATION)
-					IBackdropsGetGrids("grid_pit_angel", GridEntityType.GRID_PIT)
-				else
-					if stage % 2 == 0 then
-						IBackdropsChangeBG(bg, true, "dark")
-					end
-					IBackdropsCustomBG("challenge_1")
+				if stage % 2 == 0 then
+					IBackdropsChangeBG(bg, true, "dark")
 				end
+				IBackdropsCustomBG("challenge_1")
 				
 			elseif config.ubmarket == true and rtype == RoomType.ROOM_BLACK_MARKET then
 				IBackdropsCustomBG("blackmarket_1")
@@ -598,6 +592,7 @@ function IBackdropsChangeBG(id, bloody, bloodtype)
 			bloodID = BackdropType.CORPSE_ENTRANCE
 		end
 		game:ShowHallucination(0, bloodID)
+		SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 	end
 	game:ShowHallucination(0, id)
 	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
