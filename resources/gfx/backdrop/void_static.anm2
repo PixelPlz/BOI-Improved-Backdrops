@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="Unknown" CreatedOn="2022-04-03 19:24:36" Version="49" Fps="30"/>
+	<Info CreatedBy="Unknown" CreatedOn="2022-05-17 14:33:46" Version="50" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="void_static.png" Id="0"/>
@@ -13,7 +13,7 @@
 	<Animations DefaultAnimation="Stage">
 		<Animation Name="Stage" FrameNum="8" Loop="true">
 			<RootAnimation>
-				<Frame XPosition="223" YPosition="141" XScale="185" YScale="110" Delay="8" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="12" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+				<Frame XPosition="223" YPosition="141" XScale="185" YScale="110" Delay="8" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="16" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 			</RootAnimation>
 			<LayerAnimations>
 				<LayerAnimation LayerId="0" Visible="true">

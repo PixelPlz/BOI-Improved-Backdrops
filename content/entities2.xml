@@ -1,5 +1,6 @@
 <entities anm2root="gfx/" version="5">	
 	<entity anm2path="backdrop/custom/overlay.anm2" 			subtype="2727" variant="120" id="1000" name="Improved Backdrops - Persistent Entity"/>
+	<entity anm2path="backdrop/custom/flooded_details.anm2" 	subtype="2728" variant="120" id="1000" name="Improved Backdrops - Persistent Prop"/>
 	<entity anm2path="backdrop/custom/walls.anm2" 				subtype="2727" variant="140" id="1000" name="Improved Backdrops - Custom Wall"/>
 	<entity anm2path="backdrop/custom/corner_extras.anm2" 		subtype="2728" variant="140" id="1000" name="Improved Backdrops - Corner Detail"/>
 	<entity anm2path="backdrop/custom/wall_L_inner.anm2" 		subtype="2729" variant="140" id="1000" name="Improved Backdrops - L Inner Walls"/>
