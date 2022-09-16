@@ -409,6 +409,12 @@ function mod:IBackdropsEnterRoom()
 				end
 			end
 		
+		-- Corpse
+		elseif bg == BackdropType.CORPSE then
+			if not FiendFolio and room:HasWaterPits() then
+				IBackdropsGetGrids("/FFF/grid_pit_blood_corpse", GridEntityType.GRID_PIT)
+			end
+		
 		-- Corpse 2
 		elseif bg == BackdropType.CORPSE2 then
 			if not FiendFolio then
@@ -433,10 +439,6 @@ function mod:IBackdropsEnterRoom()
 		if bg == BackdropType.CELLAR or bg == BackdropType.CAVES or bg == BackdropType.FLOODED_CAVES or bg == BackdropType.DEPTHS or bg == BackdropType.DANK_DEPTHS 
 		or (bg == BackdropType.SHEOL and rtype == RoomType.ROOM_DEFAULT) or bg == BackdropType.DOWNPOUR_ENTRANCE then
 			IBackdropsTopDecorPositions(shape)
-
-			if bg == BackdropType.FLOODED_CAVES then
-				IBackdropsSpawnLilyPads()
-			end
 			
 		-- Dark Room decoration grids
 		elseif bg == BackdropType.DARKROOM and rtype ~= RoomType.ROOM_BOSS then
@@ -508,7 +510,6 @@ end
 
 -- Persistent entity
 function mod:IBackdropsPersistentEntity(entity)
-	-- Overlays
 	if entity.SubType == 2727 and entity.FrameCount == 0 and config.cooloverlays == true then
 		local sprite = entity:GetSprite()
 		local bg = game:GetRoom():GetBackdropType()
@@ -533,20 +534,6 @@ function mod:IBackdropsPersistentEntity(entity)
 		sprite:LoadGraphics()
 		entity.DepthOffset = 10000 -- make the entity appear above other ones
 		entity.Visible = true
-
-	-- Flooded Caves extras
-	elseif entity.SubType == 2728 then
-		local sprite = entity:GetSprite()
-
-		if entity.FrameCount == 0 then
-			sprite:Play("LilyPad" .. entity.InitSeed % 10, true)
-			entity.Visible = true
-		end
-		
-		local pit = game:GetRoom():GetGridEntityFromPos(entity.Position)
-		if pit:GetType() ~= GridEntityType.GRID_PIT or pit.State == 1 then
-			entity:Remove()
-		end
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.IBackdropsPersistentEntity, EffectVariant.SPAWNER)
@@ -599,20 +586,6 @@ function IBackdropsSpawnTopDecor(type, x, thin)
 		
 		local entity = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SPAWNER, 2727, Vector(x, y), Vector.Zero, nil):ToEffect()
 		entity.State = 2000 + type + alt
-	end
-end
-
--- Flooded caves lily pads
-function IBackdropsSpawnLilyPads()
-	local room = game:GetRoom()
-		
-	for grindex = 0, room:GetGridSize() - 1 do
-		if room:GetGridEntity(grindex) ~= nil then
-			local grid = room:GetGridEntity(grindex)
-			if grid:GetType() == GridEntityType.GRID_PIT and math.random(1, 10) == 1 then
-				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SPAWNER, 2728, grid.Position, Vector.Zero, nil):ToEffect()
-			end
-		end
 	end
 end
 
