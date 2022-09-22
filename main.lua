@@ -381,7 +381,11 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsGetGrids("rocks_ashpit_custom")
 			end
 			if IBackdropsIsValidBossRoom() then
-				IBackdropsCustomBG("boss_ashpit_1")
+				local ashCheck = 2
+				if room:HasWaterPits() or (roomDesc.Flags & RoomDescriptor.FLAG_USE_ALTERNATE_BACKDROP > 0) then
+					ashCheck = 1
+				end
+				IBackdropsCustomBG("boss_ashpit_" .. ashCheck)
 			end
 		
 		-- Gehenna
@@ -625,7 +629,9 @@ function IBackdropsGetGrids(spritesheet, checkType)
 				if replace == true then
 					local gridsprite = grid:GetSprite()
 					gridsprite:ReplaceSpritesheet(0, "gfx/grid/" .. spritesheet .. ".png")
-					gridsprite:ReplaceSpritesheet(1, "gfx/grid/" .. spritesheet .. ".png")
+					if checkType ~= GridEntityType.GRID_PIT then
+						gridsprite:ReplaceSpritesheet(1, "gfx/grid/" .. spritesheet .. ".png")
+					end
 					gridsprite:LoadGraphics()
 				end
 			end
@@ -758,51 +764,51 @@ if ModConfigMenu then
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.customrocks end,
-	    Display = function() return "Custom rocks: " .. (config.customrocks and "True" or "False") end,
+	    Display = function() return "Custom rocks: " .. (config.customrocks and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.customrocks = bool
 	    end,
-	    Info = {"Enable/Disable the mod's custom rocks. (default = true)"}
+	    Info = {"Enable/Disable the mod's custom rocks. (default = on)"}
   	})
 	
   	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.tintedcompat end,
-	    Display = function() return "Tinted rock compatibility: " .. (config.tintedcompat and "True" or "False") end,
+	    Display = function() return "Tinted rock compatibility: " .. (config.tintedcompat and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.tintedcompat = bool
 	    end,
-	    Info = {"(for the custom rocks option) Tinted rocks will not use custom sprites, allowing you to use tinted rock mods. (default = false)"}
+	    Info = {"(for the custom rocks option) Tinted rocks will not use custom sprites, allowing you to use tinted rock mods. (default = off)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.cooloverlays end,
-	    Display = function() return "Overlay details: " .. (config.cooloverlays and "True" or "False") end,
+	    Display = function() return "Overlay details: " .. (config.cooloverlays and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.cooloverlays = bool
 	    end,
-	    Info = {"Enable/Disable overlay details eg. Stalactites in caves. (default = true)"}
+	    Info = {"Enable/Disable overlay details eg. Stalactites in caves. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.voidstatic end,
-	    Display = function() return "Void Overlay: " .. (config.voidstatic and "True" or "False") end,
+	    Display = function() return "Void Overlay: " .. (config.voidstatic and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.voidstatic = bool
 	    end,
-	    Info = {"Enable/Disable the Void overlay. (default = true)"}
+	    Info = {"Enable/Disable the Void overlay. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.randvoid end,
-	    Display = function() return "Randomize Void backdrops: " .. (config.randvoid and "True" or "False") end,
+	    Display = function() return "Randomize Void backdrops: " .. (config.randvoid and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.randvoid = bool
 	    end,
-	    Info = {"Enable/Disable randomized Void backdrops. (default = true)"}
+	    Info = {"Enable/Disable randomized Void backdrops. (default = on)"}
   	})
 
 	
@@ -810,61 +816,61 @@ if ModConfigMenu then
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.udevil end,
-	    Display = function() return "Unique devil rooms: " .. (config.udevil and "True" or "False") end,
+	    Display = function() return "Unique devil rooms: " .. (config.udevil and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.udevil = bool
 	    end,
-	    Info = {"Enable/Disable unique devil rooms. (default = true)"}
+	    Info = {"Enable/Disable unique devil rooms. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.uangel end,
-	    Display = function() return "Unique angel rooms: " .. (config.uangel and "True" or "False") end,
+	    Display = function() return "Unique angel rooms: " .. (config.uangel and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.uangel = bool
 	    end,
-	    Info = {"Enable/Disable unique angel rooms. (default = true)"}
+	    Info = {"Enable/Disable unique angel rooms. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.ucurse end,
-	    Display = function() return "Unique curse rooms: " .. (config.ucurse and "True" or "False") end,
+	    Display = function() return "Unique curse rooms: " .. (config.ucurse and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.ucurse = bool
 	    end,
-	    Info = {"Enable/Disable unique curse rooms. (default = true)"}
+	    Info = {"Enable/Disable unique curse rooms. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.uchallenge end,
-	    Display = function() return "Unique challenge rooms: " .. (config.uchallenge and "True" or "False") end,
+	    Display = function() return "Unique challenge rooms: " .. (config.uchallenge and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.uchallenge = bool
 	    end,
-	    Info = {"Enable/Disable unique challenge rooms. This also applies to boss rush. (default = true)"}
+	    Info = {"Enable/Disable unique challenge rooms. This also applies to boss rush. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.ucrawlspace end,
-	    Display = function() return "Unique crawlspaces: " .. (config.ucrawlspace and "True" or "False") end,
+	    Display = function() return "Unique crawlspaces: " .. (config.ucrawlspace and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.ucrawlspace = bool
 	    end,
-	    Info = {"Enable/Disable unique crawlspaces. (default = true)"}
+	    Info = {"Enable/Disable unique crawlspaces. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.ubmarket end,
-	    Display = function() return "Unique black market: " .. (config.ubmarket and "True" or "False") end,
+	    Display = function() return "Unique black market: " .. (config.ubmarket and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.ubmarket = bool
 	    end,
-	    Info = {"Enable/Disable unique black markets. (default = true)"}
+	    Info = {"Enable/Disable unique black markets. (default = on)"}
   	})
 	
 	
@@ -872,20 +878,20 @@ if ModConfigMenu then
 	ModConfigMenu.AddSetting(category, "Boss", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.custombossrooms end,
-	    Display = function() return "Unique boss rooms: " .. (config.custombossrooms and "True" or "False") end,
+	    Display = function() return "Unique boss rooms: " .. (config.custombossrooms and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.custombossrooms = bool
 	    end,
-	    Info = {"Enable/Disable unique boss rooms. (default = true)"}
+	    Info = {"Enable/Disable unique boss rooms. (default = on)"}
   	})
 	
 	ModConfigMenu.AddSetting(category, "Boss", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.customgreedrooms end,
-	    Display = function() return "Unique Greed miniboss rooms: " .. (config.customgreedrooms and "True" or "False") end,
+	    Display = function() return "Unique Greed miniboss rooms: " .. (config.customgreedrooms and "On" or "Off") end,
 	    OnChange = function(bool)
 	    	config.customgreedrooms = bool
 	    end,
-	    Info = {"Enable/Disable unique Greed miniboss rooms. (default = true)"}
+	    Info = {"Enable/Disable unique Greed miniboss rooms. (default = on)"}
   	})
 end
