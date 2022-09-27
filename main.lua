@@ -449,6 +449,8 @@ function mod:IBackdropsEnterRoom()
 			IBackdropsSpawnDecorGrids(shape)
 		end
 	end
+	
+	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
 

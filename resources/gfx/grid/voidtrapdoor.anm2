@@ -1,8 +1,8 @@
 <AnimatedActor>
-	<Info CreatedBy="Unknown" CreatedOn="2022-09-02 15:14:42" Version="15" Fps="30"/>
+	<Info CreatedBy="Unknown" CreatedOn="2022-09-28 00:41:30" Version="16" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="voidtrapdoor.png" Id="0"/>
+			<Spritesheet Path="trapdoor_void.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="back" Id="0" SpritesheetId="0"/>
