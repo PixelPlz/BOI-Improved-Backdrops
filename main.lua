@@ -89,6 +89,17 @@ mod:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, mod.preGameExit)
 
 
 
+-- For Revelations compatibility
+function mod:CheckForRev()
+	if REVEL and REVEL.IsRevelStage(true) then
+		return true
+	else
+		return false
+	end
+end
+
+
+
 -- Spawn entities when entering a room
 function mod:IBackdropsEnterRoom()
 	local room = game:GetRoom()
@@ -108,7 +119,7 @@ function mod:IBackdropsEnterRoom()
 
 	-- Check if boss room is valid for custom walls
 	function IBackdropsIsValidBossRoom()
-		if config.custombossrooms == true and (rtype == RoomType.ROOM_BOSS or rtype == RoomType.ROOM_MINIBOSS) and stage ~= LevelStage.STAGE7 and (not REVEL or REVEL.IsRevelStage(true) == false) then
+		if config.custombossrooms == true and (rtype == RoomType.ROOM_BOSS or rtype == RoomType.ROOM_MINIBOSS) and stage ~= LevelStage.STAGE7 and mod:CheckForRev() == false then
 			return true
 		else
 			return false
@@ -204,11 +215,11 @@ function mod:IBackdropsEnterRoom()
 			if IBackdropsIsValidBossRoom() == true or (config.udevil == true and rtype == RoomType.ROOM_DEVIL) then
 				IBackdropsCustomBG("devil_1")
 				
-			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE then
+			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE and mod:CheckForRev() == false then
 				IBackdropsChangeBG(bg, true, "dark")
 				IBackdropsCustomBG("curse_" .. tostring((room:GetDecorationSeed() % 2) + 1), "corner")
 				
-			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) then
+			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) and mod:CheckForRev() == false then
 				if stage % 2 == 0 then
 					IBackdropsChangeBG(bg, true, "dark")
 				end
@@ -264,7 +275,7 @@ function mod:IBackdropsEnterRoom()
 		
 		-- Shop
 		elseif bg == BackdropType.SHOP then
-			if shape == reg then
+			if shape == reg and not (mod:CheckForRev() == true and StageAPI.GetCurrentRoomType() == "VanityShop") then
 				IBackdropsCustomBG("shop_1")
 			end
 			if (config.customgreedrooms == true and roomDesc.SurpriseMiniboss == true) or stage == LevelStage.STAGE4_3 then

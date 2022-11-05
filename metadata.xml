@@ -3,60 +3,8 @@
     <name>!A improved backdrops</name>
     <directory>!!! improved backdrops</directory>
     <id>2751333905</id>
-    <description>-- PLEASE READ! --
-
-Make sure to restart the game when first installing or after enabling / disabling, otherwise the mod will not work properly!
-
-
-The mod will not work with most other mods that change backdrops!
-Works with and without StageAPI.
-
-You can use Mod Config Menu to toggle certain features!
-(If you use other mods that have custom rocks, make sure to disable this mod's custom ones with it!)
-
-Best used with:
-Nioffe's Better Doors (it has unique sprites for this mod!) or my custom doors
-Darker Hell
-Mega Satan's Bling
-my custom devil and angel statues
-
-
-----------------------------
-
-
--- Additions --
-- most main path levels have unique boss (and mini boss) rooms
-- some floors can have unique detail sprites (similar to the hanging chains in Gehenna or lanterns in the Mines)
-- new Cathedral
-- new Mausoleum based on the cut mini-floor from Antibirth
-- new Catacombs
-- new Burning Basement
-- more variants for Caves, Necropolis, Gehenna, Womb, Sheol, Libraries
-- new Angel and Devil rooms
-- new Arcades
-- new Challenge rooms
-- new alternate path entrances
-- new Black Markets
-
--- Changes --
-- improved backdrop sprites for: Basement, Cellar, Mines, Depths, Dank Depths, Scarred Womb, Blue Womb, Dark Room, Shops, Dice rooms, Isaac's / Barren rooms, Secret rooms, Planetariums, Curse Rooms
-- improved lighting and overlay effects for Downpour, Flooded Caves, Mines, Ashpit, Depths, Dank Depths, Gehenna, Womb, Blue Womb, Dark Room
-- more fitting props / rocks / pits / spikes for a lot of floors
-
-
-----------------------------
-
-
-Also available on GitHub
-I can be reached on Discord, PixelPlz#8363 or you can add me directly on Steam.
-
-Thank you to:
-Aleku for the better Basement backdrop
-Nioffe for letting me use some assets from their Backgrounds and Doors mod
-TheSavageHybrid for the base for the new Burning Basement
-BeGrapa for letting me include fixed pits v2
-Everyone else, for all the support :)</description>
-    <version>2.10</version>
+    <description></description>
+    <version>2.11</version>
     <visibility>Public</visibility>
     <tag id="Rooms"/>
     <tag id="Floors"/>
