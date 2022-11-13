@@ -217,7 +217,7 @@ function mod:IBackdropsEnterRoom()
 				
 			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE and mod:CheckForRev() == false then
 				IBackdropsChangeBG(bg, true, "dark")
-				IBackdropsCustomBG("curse_" .. tostring((room:GetDecorationSeed() % 2) + 1), "corner")
+				IBackdropsCustomBG("curse", "corner_extras_curse", true)
 				
 			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) and mod:CheckForRev() == false then
 				if stage % 2 == 0 then
@@ -258,14 +258,7 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsDarkRoomBottom(shape, tostring((room:GetDecorationSeed() % 2) + 1))
 			elseif shape == reg then
 				if IBackdropsIsValidBossRoom() == true then
-					IBackdropsCustomBG("boss_darkroom", "floor")
-					local darkwalls = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 2731, Vector(-20, 60), Vector.Zero, nil):ToEffect()
-					darkwalls.DepthOffset = -10000
-					darkwalls:AddEntityFlags(EntityFlag.FLAG_BACKDROP_DETAIL)
-					-- Debris
-					for i = 0, 6 do
-						Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.DOGMA_DEBRIS, 0, Isaac.GetRandomPosition(), Vector.Zero, nil):ToEffect()
-					end
+					IBackdropsCustomBG("boss_darkroom", "boss_darkroom", true)
 				end
 			end
 		
@@ -301,6 +294,7 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsCustomBG("ihv_arcade")
 			end
 		
+		-- Crawlspaces
 		elseif bg == BackdropType.DUNGEON then
 			if stage == LevelStage.STAGE3_1 or stage == LevelStage.STAGE3_2 or stage == LevelStage.STAGE5 then
 				IBackdropsCrawlspace("tiles_itemdungeon_gray")
@@ -391,11 +385,7 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsGetGrids("rocks_ashpit_custom")
 			end
 			if IBackdropsIsValidBossRoom() then
-				local ashCheck = 2
-				if room:HasWaterPits() or (roomDesc.Flags & RoomDescriptor.FLAG_USE_ALTERNATE_BACKDROP > 0) then
-					ashCheck = 1
-				end
-				IBackdropsCustomBG("boss_ashpit_" .. ashCheck)
+				IBackdropsCustomBG("boss_ashpit_1")
 			end
 		
 		-- Gehenna
@@ -467,57 +457,60 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
 
 
 -- Custom walls
-function IBackdropsCustomBG(sheet, type)
+function IBackdropsCustomBG(sheet, anim, animated)
 	local shape = game:GetRoom():GetRoomShape()
-	if type == "corner" then
-		type = 1
-	elseif type == "L" then
-		type = 2
-	elseif type == "floor" then
-		type = 3
-	else
-		type = 0
+
+	if anim == "corner" then
+		anim = "corner_extras"
+	elseif anim == "L" then
+		anim = "wall_L_inner"
+	elseif not anim then
+		anim = "walls"
 	end
 
+	local type = EffectVariant.BACKDROP_DECORATION
+	local flags = EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_BACKDROP_DETAIL
+	if animated == true then
+		type = EffectVariant.WORMWOOD_HOLE
+		flags = EntityFlag.FLAG_BACKDROP_DETAIL
+	end
+
+
 	-- L room inner walls
-	if type == 2 then
-		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 2727 + type, LinnerPositions[shape - 8], Vector.Zero, nil):ToEffect()
+	if anim == "wall_L_inner" then
+		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WORMWOOD_HOLE, 0, LinnerPositions[shape - 8], Vector.Zero, nil):ToEffect()
+		backdrop:AddEntityFlags(flags)
+		backdrop.DepthOffset = -10000
+
 		local sprite = backdrop:GetSprite()
-		
+		sprite:Load("gfx/backdrop/custom/" .. anim .. ".anm2", false)
 		for i = 0, sprite:GetLayerCount() do
 			sprite:ReplaceSpritesheet(i, "gfx/backdrop/custom/" .. sheet .. ".png")
 		end
-
 		sprite:LoadGraphics()
 		sprite:SetFrame(sprite:GetDefaultAnimation(), shape - 9)
-		backdrop:AddEntityFlags(EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_BACKDROP_DETAIL)
-	
-	-- Floors
-	elseif type == 3 then
-		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 2727 + type, Vector(-20, 60), Vector.Zero, nil):ToEffect()
-		local sprite = backdrop:GetSprite()
-		
-		backdrop.DepthOffset = 10000
-		sprite:ReplaceSpritesheet(0, "gfx/backdrop/custom/" .. sheet .. ".png")
-		sprite:LoadGraphics()
-		backdrop:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_BACKDROP_DETAIL)
+
 	
 	-- Walls / Corner details
 	else
 		for p = 1, 4 do
-			local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 2727 + type, BackdropPositons[shape][p], Vector.Zero, nil):ToEffect()
-			local sprite = backdrop:GetSprite()
+			local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WORMWOOD_HOLE, 0, BackdropPositons[shape][p], Vector.Zero, nil):ToEffect()
+			backdrop:AddEntityFlags(flags)
+			backdrop.DepthOffset = -10000
 
+			local sprite = backdrop:GetSprite()
+			sprite:Load("gfx/backdrop/custom/" .. anim .. ".anm2", false)
 			for i = 0, sprite:GetLayerCount() do
 				sprite:ReplaceSpritesheet(i, "gfx/backdrop/custom/" .. sheet .. ".png")
 			end
-			
-			if type == 0 then
-				sprite:Play(shape, true)
-			end
 			sprite:LoadGraphics()
+
+			if anim == "walls" then
+				sprite:Play(shape, true)
+			else
+				sprite:Play(sprite:GetDefaultAnimation(), true)
+			end
 			sprite:SetFrame(p - 1)
-			backdrop:AddEntityFlags(EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_BACKDROP_DETAIL)
 		end
 	end
 end
@@ -526,7 +519,7 @@ end
 
 -- Persistent entity
 function mod:IBackdropsPersistentEntity(entity)
-	if entity.SubType == 2727 and entity.FrameCount == 0 and config.cooloverlays == true then
+	if config.cooloverlays == true and entity.SubType == 2727 and entity.FrameCount == 0 then
 		local sprite = entity:GetSprite()
 		local bg = game:GetRoom():GetBackdropType()
 
@@ -545,8 +538,9 @@ function mod:IBackdropsPersistentEntity(entity)
 			sheet = "downpour"
 		end
 
+		sprite:Load("gfx/backdrop/custom/overlay.anm2", false)
 		sprite:ReplaceSpritesheet(0, "gfx/backdrop/custom/overlay_" .. sheet .. ".png")
-		sprite:SetFrame(entity.State % 10) -- set frame to the last digit of the state (even numbers - left, odd numbers - right)
+		sprite:SetFrame(sprite:GetDefaultAnimation(), entity.State % 10) -- set frame to the last digit of the state (even numbers - left, odd numbers - right)
 		sprite:LoadGraphics()
 		entity.DepthOffset = 10000 -- make the entity appear above other ones
 		entity.Visible = true
@@ -749,15 +743,16 @@ function IBackdropsDarkRoomBottom(shape, spritesheet)
 	end
 	
 	for i, entry in pairs(spawns) do
-		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 2732, entry[1], Vector.Zero, nil):ToEffect()
-		local sprite = backdrop:GetSprite()
+		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 0, entry[1], Vector.Zero, nil):ToEffect()
+		backdrop:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_BACKDROP_DETAIL)
+		backdrop.DepthOffset = -10000
 
-		sprite:SetFrame(entry[2])
+		local sprite = backdrop:GetSprite()
+		sprite:Load("gfx/backdrop/custom/darkroom_bottom.anm2", false)
+		sprite:SetFrame(sprite:GetDefaultAnimation(), entry[2])
 		sprite:ReplaceSpritesheet(0, "gfx/backdrop/custom/darkroom_bottom_" .. spritesheet .. ".png")
 		sprite:ReplaceSpritesheet(1, "gfx/backdrop/custom/darkroom_bottom_" .. spritesheet .. ".png")
 		sprite:LoadGraphics()
-
-		backdrop:AddEntityFlags(EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_BACKDROP_DETAIL)
 	end
 end
 
