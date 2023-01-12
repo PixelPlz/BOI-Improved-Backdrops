@@ -217,6 +217,7 @@ function mod:IBackdropsEnterRoom()
 				
 			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE and mod:CheckForRev() == false then
 				IBackdropsChangeBG(bg, true, "dark")
+				IBackdropsCustomBG("curse", "corner_extras")
 				IBackdropsCustomBG("curse", "corner_extras_curse", true)
 				
 			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) and mod:CheckForRev() == false then
@@ -258,7 +259,8 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsDarkRoomBottom(shape, tostring((room:GetDecorationSeed() % 2) + 1))
 			elseif shape == reg then
 				if IBackdropsIsValidBossRoom() == true then
-					IBackdropsCustomBG("boss_darkroom", "boss_darkroom", true)
+					IBackdropsCustomBG("boss_darkroom", "boss_darkroom")
+					IBackdropsCustomBG("boss_darkroom", "boss_darkroom_lights", true)
 				end
 			end
 		
@@ -412,22 +414,6 @@ function mod:IBackdropsEnterRoom()
 					end
 				end
 			end
-		
-		-- Corpse
-		elseif bg == BackdropType.CORPSE then
-			if not FiendFolio and room:HasWaterPits() then
-				IBackdropsGetGrids("/FFF/grid_pit_blood_corpse", GridEntityType.GRID_PIT)
-			end
-		
-		-- Corpse 2
-		elseif bg == BackdropType.CORPSE2 then
-			if not FiendFolio then
-				local pitSheet = "/FFF/grid_pit_corpse2"
-				if room:HasWaterPits() then
-					pitSheet = "/FFF/grid_pit_blood_corpse2"
-				end
-				IBackdropsGetGrids(pitSheet, GridEntityType.GRID_PIT)
-			end
 		end
 		
 		-- Randomized Void backdrops
@@ -449,7 +435,7 @@ function mod:IBackdropsEnterRoom()
 			IBackdropsSpawnDecorGrids(shape)
 		end
 	end
-	
+
 	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
@@ -478,7 +464,7 @@ function IBackdropsCustomBG(sheet, anim, animated)
 
 	-- L room inner walls
 	if anim == "wall_L_inner" then
-		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WORMWOOD_HOLE, 0, LinnerPositions[shape - 8], Vector.Zero, nil):ToEffect()
+		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, type, 0, LinnerPositions[shape - 8], Vector.Zero, nil):ToEffect()
 		backdrop:AddEntityFlags(flags)
 		backdrop.DepthOffset = -10000
 
@@ -490,11 +476,11 @@ function IBackdropsCustomBG(sheet, anim, animated)
 		sprite:LoadGraphics()
 		sprite:SetFrame(sprite:GetDefaultAnimation(), shape - 9)
 
-	
+
 	-- Walls / Corner details
 	else
 		for p = 1, 4 do
-			local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WORMWOOD_HOLE, 0, BackdropPositons[shape][p], Vector.Zero, nil):ToEffect()
+			local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, type, 0, BackdropPositons[shape][p], Vector.Zero, nil):ToEffect()
 			backdrop:AddEntityFlags(flags)
 			backdrop.DepthOffset = -10000
 
