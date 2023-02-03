@@ -438,7 +438,7 @@ function mod:IBackdropsEnterRoom()
 
 	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
+mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_ROOM, CallbackPriority.EARLY, mod.IBackdropsEnterRoom)
 
 
 
