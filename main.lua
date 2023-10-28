@@ -3,6 +3,8 @@ local mod = ImprovedBackdrops
 local game = Game()
 local json = require("json")
 
+
+
 -- Backdrop enums
 BackdropType.MAUSOLEUM_BOSS = BackdropType.MAUSOLEUM3
 BackdropType.GEHENNA_BOSS = BackdropType.MAUSOLEUM4
@@ -27,15 +29,15 @@ local BackdropPositons = {
 	{Vector(-20, 60),  Vector(660, 60),  Vector(-20, 500), Vector(660, 500)}, -- 1x1
 	{Vector(-20, 140), Vector(660, 140), Vector(-20, 420), Vector(660, 420)}, -- IH
 	{Vector(140, 60),  Vector(500, 60),  Vector(140, 500), Vector(500, 500)}, -- IV
-	
+
 	{Vector(-20, 60), Vector(660, 60), Vector(-20, 780), Vector(660, 780)}, -- 1x2
 	{Vector(140, 60), Vector(500, 60), Vector(140, 780), Vector(500, 780)}, -- IIV
-	
+
 	{Vector(-20, 60),  Vector(1180, 60),  Vector(-20, 500), Vector(1180, 500)}, -- 2x1
 	{Vector(-20, 140), Vector(1180, 140), Vector(-20, 420), Vector(1180, 420)}, -- IIH
-	
+
 	{Vector(-20, 60), Vector(1180, 60), Vector(-20, 780), Vector(1180, 780)}, -- 2x2
-	
+
 	{Vector(-20, 340), Vector(1180, 60),  Vector(-20, 780), Vector(1180, 780)}, -- LTL
 	{Vector(-20, 60),  Vector(1180, 340), Vector(-20, 780), Vector(1180, 780)}, -- LTR
 	{Vector(-20, 60),  Vector(1180, 60),  Vector(-20, 500), Vector(1180, 780)}, -- LBL
@@ -110,12 +112,6 @@ function mod:IBackdropsEnterRoom()
 	local stage = level:GetStage()
 	local roomDesc = level:GetRoomByIdx(level:GetCurrentRoomIndex())
 
-	if FiendFolio then
-		config.customrocks = false
-		config.uchallenge = false
-		config.ucrawlspace = false
-	end
-
 
 	-- Check if boss room is valid for custom walls
 	function IBackdropsIsValidBossRoom()
@@ -134,14 +130,14 @@ function mod:IBackdropsEnterRoom()
 			if config.custombossrooms == true and rtype == RoomType.ROOM_MINIBOSS then
 				IBackdropsCustomBG("boss_basement_1")
 			end
-		
+
 		-- Cellar
 		elseif bg == BackdropType.CELLAR then
 			if IBackdropsIsValidBossRoom() == true then
 				IBackdropsChangeBG(bg, true)
 				IBackdropsCustomBG("boss_cellar_1")
 			end
-		
+
 		-- Burning Basement
 		elseif bg == BackdropType.BURNT_BASEMENT then
 			if room:GetDecorationSeed() % 2 == 0 or IBackdropsIsValidBossRoom() == true then
@@ -151,27 +147,27 @@ function mod:IBackdropsEnterRoom()
 				end
 				IBackdropsGetGrids("rocks_burning_custom")
 			end
-		
+
 		-- Caves
 		elseif bg == BackdropType.CAVES then
 			if IBackdropsIsValidBossRoom() == true then
 				IBackdropsChangeBG(bg, true)
 				IBackdropsCustomBG("boss_caves_1")
 			end
-			
+
 		-- Catacombs
 		elseif bg == BackdropType.CATACOMBS then
 			if IBackdropsIsValidBossRoom() == true then
 				IBackdropsChangeBG(bg, true)
 				IBackdropsCustomBG("boss_catacombs_1")
 			end
-			
+
 		-- Flooded Caves
 		elseif bg == BackdropType.FLOODED_CAVES then
 			if IBackdropsIsValidBossRoom() == true then
 				IBackdropsCustomBG("boss_flooded_1")
 			end
-			
+
 		-- Depths
 		elseif bg == BackdropType.DEPTHS then
 			if IBackdropsIsValidBossRoom() == true then
@@ -182,7 +178,7 @@ function mod:IBackdropsEnterRoom()
 					IBackdropsCustomBG("depths_pillar", "corner")
 				end
 			end
-		
+
 		-- Necropolis / Sacrifice rooms
 		elseif bg == BackdropType.NECROPOLIS or bg == BackdropType.SACRIFICE then
 			IBackdropsGetGrids("rocks_necropolis_custom")
@@ -192,7 +188,7 @@ function mod:IBackdropsEnterRoom()
 					IBackdropsCustomBG("boss_necropolis_1")
 				end
 			end
-		
+
 		-- Dank Depths
 		elseif bg == BackdropType.DANK_DEPTHS then
 			IBackdropsGetGrids("rocks_dankdepths_custom")
@@ -203,34 +199,34 @@ function mod:IBackdropsEnterRoom()
 					IBackdropsCustomBG("dank_pillar", "corner")
 				end
 			end
-		
+
 		-- Scarred Womb
 		elseif bg == BackdropType.SCARRED_WOMB then
 			if room:HasWater() then
 				IBackdropsGetGrids("rocks_scarredwomb_blood")
 			end
-			
+
 		-- Sheol / Sheol backdrop special rooms
 		elseif bg == BackdropType.SHEOL then
-			if IBackdropsIsValidBossRoom() == true or (config.udevil == true and rtype == RoomType.ROOM_DEVIL) then
+			if IBackdropsIsValidBossRoom() == true or (config.udevil == true and rtype == RoomType.ROOM_DEVIL and mod:CheckForRev() == false) then
 				IBackdropsCustomBG("devil_1")
-				
+
 			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE and mod:CheckForRev() == false then
 				IBackdropsChangeBG(bg, true, "dark")
 				IBackdropsCustomBG("curse", "corner_extras")
 				IBackdropsCustomBG("curse", "corner_extras_curse", true)
-				
-			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) and mod:CheckForRev() == false then
+
+			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) and mod:CheckForRev() == false and not FiendFolio then
 				if stage % 2 == 0 then
 					IBackdropsChangeBG(bg, true, "dark")
 				end
 				IBackdropsCustomBG("challenge_1")
-				
+
 			elseif config.ubmarket == true and rtype == RoomType.ROOM_BLACK_MARKET then
 				IBackdropsCustomBG("blackmarket_1")
 				IBackdropsGetGrids("rocks_depths")
 			end
-		
+
 		-- Cathedral / Cathedral backdrop special rooms
 		elseif bg == BackdropType.CATHEDRAL then
 			if config.uangel == true and rtype == RoomType.ROOM_ANGEL then
@@ -238,7 +234,7 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsGetGrids("rocks_angel")
 				IBackdropsGetGrids("props_angel", GridEntityType.GRID_DECORATION)
 				IBackdropsGetGrids("grid_pit_angel", GridEntityType.GRID_PIT)
-			
+
 			else
 				if shape == tall or shape == long or shape == big then
 					IBackdropsCustomBG("cathedral_trim")
@@ -251,7 +247,7 @@ function mod:IBackdropsEnterRoom()
 					IBackdropsCustomBG("boss_cathedral_1")
 				end
 			end
-		
+
 		-- Dark Room
 		elseif bg == BackdropType.DARKROOM then
 			IBackdropsGetGrids("rocks_darkroom_custom")
@@ -263,11 +259,11 @@ function mod:IBackdropsEnterRoom()
 					IBackdropsCustomBG("boss_darkroom", "boss_darkroom_lights", true)
 				end
 			end
-		
+
 		-- Chest
 		elseif bg == BackdropType.CHEST then
 			IBackdropsGetGrids("rocks_chest_custom")
-		
+
 		-- Shop
 		elseif bg == BackdropType.SHOP then
 			if shape == reg and not (mod:CheckForRev() == true and StageAPI.GetCurrentRoomType() == "VanityShop") then
@@ -276,7 +272,7 @@ function mod:IBackdropsEnterRoom()
 			if (config.customgreedrooms == true and roomDesc.SurpriseMiniboss == true) or stage == LevelStage.STAGE4_3 then
 				IBackdropsCustomBG("greed_shop")
 			end
-		
+
 		-- Secret Room
 		elseif bg == BackdropType.SECRET then
 			if (config.customgreedrooms == true and roomDesc.SurpriseMiniboss == true) or rtype == RoomType.ROOM_SHOP then
@@ -284,18 +280,18 @@ function mod:IBackdropsEnterRoom()
 			elseif rtype == RoomType.ROOM_SECRET_EXIT then
 				IBackdropsChangeBG(BackdropType.MINES_ENTRANCE)
 			end
-		
+
 		-- Dice rooms
 		elseif bg == BackdropType.DICE then
 			IBackdropsGetGrids("rocks_red")
-		
+
 		-- Arcades
 		elseif bg == BackdropType.ARCADE then
 			IBackdropsGetGrids("rocks_gray")
 			if shape == IH or shape == IIH or shape == IV or shape == IIV then
 				IBackdropsCustomBG("ihv_arcade")
 			end
-		
+
 		-- Crawlspaces
 		elseif bg == BackdropType.DUNGEON then
 			if stage == LevelStage.STAGE3_1 or stage == LevelStage.STAGE3_2 or stage == LevelStage.STAGE5 then
@@ -309,13 +305,13 @@ function mod:IBackdropsEnterRoom()
 			elseif stage == LevelStage.STAGE4_3 then
 				IBackdropsCrawlspace("tiles_bluewomb")
 			end
-		
+
 		-- Downpour
 		elseif bg == BackdropType.DOWNPOUR then
 			if IBackdropsIsValidBossRoom() then
 				IBackdropsCustomBG("boss_downpour_1")
 			end
-		
+
 		-- Mines
 		elseif bg == BackdropType.MINES or bg == BackdropType.MINES_SHAFT then
 			IBackdropsGetGrids("rocks_mines_custom")
@@ -334,7 +330,7 @@ function mod:IBackdropsEnterRoom()
 				for i,problematics in pairs(Isaac.GetRoomEntities()) do
 					if problematics.Type == EntityType.ENTITY_EFFECT and problematics.Variant == EffectVariant.BACKDROP_DECORATION then
 						local problemsprite = problematics:GetSprite()
-						
+
 						if problemsprite:GetFilename() == "gfx/backdrop/03x_mines_bg_details.anm2" or problemsprite:GetFilename() == "gfx/backdrop/03x_mines_bg_details_dark.anm2" then	
 							if shape == IH or shape == IIH then
 								problemsprite:SetFrame(1)
@@ -345,7 +341,7 @@ function mod:IBackdropsEnterRoom()
 					end
 				end
 			end
-		
+
 		-- Mausoleum
 		elseif bg == BackdropType.MAUSOLEUM or bg == BackdropType.MAUSOLEUM2 or bg == BackdropType.MAUSOLEUM_ENTRANCE or bg == BackdropType.MAUSOLEUM3 then
 			IBackdropsGetGrids("rocks_mausoleum_custom")
@@ -358,7 +354,7 @@ function mod:IBackdropsEnterRoom()
 					if bg == BackdropType.MAUSOLEUM2 then
 						add = "2"
 					end
-					
+
 					if shape == LBL or shape == LBR or shape == LTL or shape == LTR then
 						IBackdropsCustomBG("mausoleum_l_inner_" .. add, "L")
 					elseif shape == IH or shape == IIH or shape == IV or shape == IIV then
@@ -366,7 +362,7 @@ function mod:IBackdropsEnterRoom()
 					end
 				end
 			end
-		
+
 		-- Dross
 		elseif bg == BackdropType.DROSS then
 			if not room:HasWater() then
@@ -375,7 +371,7 @@ function mod:IBackdropsEnterRoom()
 			if IBackdropsIsValidBossRoom() then
 				IBackdropsCustomBG("boss_dross_1")
 			end
-		
+
 		-- Ashpit
 		elseif bg == BackdropType.ASHPIT then
 			if room:HasWaterPits() or (roomDesc.Flags & RoomDescriptor.FLAG_USE_ALTERNATE_BACKDROP > 0) then
@@ -389,7 +385,7 @@ function mod:IBackdropsEnterRoom()
 			if IBackdropsIsValidBossRoom() then
 				IBackdropsCustomBG("boss_ashpit_1")
 			end
-		
+
 		-- Gehenna
 		elseif bg == BackdropType.GEHENNA then
 			-- Post-Mom's Heart
@@ -415,21 +411,21 @@ function mod:IBackdropsEnterRoom()
 				end
 			end
 		end
-		
+
 		-- Randomized Void backdrops
 		if config.randvoid == true and stage == LevelStage.STAGE7 and rtype == RoomType.ROOM_DEFAULT and bg ~= BackdropType.DARKROOM then
 			IBackdropsChangeBG()
 		end
 	end
-	
-	
+
+
 	-- Persistent changes
 	if room:IsFirstVisit() then
 		-- Overlays
 		if bg == BackdropType.CELLAR or bg == BackdropType.CAVES or bg == BackdropType.FLOODED_CAVES or bg == BackdropType.DEPTHS or bg == BackdropType.DANK_DEPTHS 
 		or (bg == BackdropType.SHEOL and rtype == RoomType.ROOM_DEFAULT) or bg == BackdropType.DOWNPOUR_ENTRANCE then
 			IBackdropsTopDecorPositions(shape)
-			
+
 		-- Dark Room decoration grids
 		elseif bg == BackdropType.DARKROOM and rtype ~= RoomType.ROOM_BOSS then
 			IBackdropsSpawnDecorGrids(shape)
@@ -438,49 +434,34 @@ function mod:IBackdropsEnterRoom()
 
 	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 end
-mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_ROOM, CallbackPriority.EARLY, mod.IBackdropsEnterRoom)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
 
 
 
 -- Custom walls
 function IBackdropsCustomBG(sheet, anim, animated)
-	local shape = game:GetRoom():GetRoomShape()
+	if not (FiendFolio and FiendFolio.roomBackdrop ~= nil) then -- Don't do it in rooms with custom FF backdrops
+		local shape = game:GetRoom():GetRoomShape()
 
-	if anim == "corner" then
-		anim = "corner_extras"
-	elseif anim == "L" then
-		anim = "wall_L_inner"
-	elseif not anim then
-		anim = "walls"
-	end
-
-	local type = EffectVariant.BACKDROP_DECORATION
-	local flags = EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_BACKDROP_DETAIL
-	if animated == true then
-		type = EffectVariant.WORMWOOD_HOLE
-		flags = EntityFlag.FLAG_BACKDROP_DETAIL
-	end
-
-
-	-- L room inner walls
-	if anim == "wall_L_inner" then
-		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, type, 0, LinnerPositions[shape - 8], Vector.Zero, nil):ToEffect()
-		backdrop:AddEntityFlags(flags)
-		backdrop.DepthOffset = -10000
-
-		local sprite = backdrop:GetSprite()
-		sprite:Load("gfx/backdrop/custom/" .. anim .. ".anm2", false)
-		for i = 0, sprite:GetLayerCount() do
-			sprite:ReplaceSpritesheet(i, "gfx/backdrop/custom/" .. sheet .. ".png")
+		if anim == "corner" then
+			anim = "corner_extras"
+		elseif anim == "L" then
+			anim = "wall_L_inner"
+		elseif not anim then
+			anim = "walls"
 		end
-		sprite:LoadGraphics()
-		sprite:SetFrame(sprite:GetDefaultAnimation(), shape - 9)
+
+		local type = EffectVariant.BACKDROP_DECORATION
+		local flags = EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_BACKDROP_DETAIL
+		if animated == true then
+			type = EffectVariant.WORMWOOD_HOLE
+			flags = EntityFlag.FLAG_BACKDROP_DETAIL
+		end
 
 
-	-- Walls / Corner details
-	else
-		for p = 1, 4 do
-			local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, type, 0, BackdropPositons[shape][p], Vector.Zero, nil):ToEffect()
+		-- L room inner walls
+		if anim == "wall_L_inner" then
+			local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, type, 0, LinnerPositions[shape - 8], Vector.Zero, nil):ToEffect()
 			backdrop:AddEntityFlags(flags)
 			backdrop.DepthOffset = -10000
 
@@ -490,13 +471,30 @@ function IBackdropsCustomBG(sheet, anim, animated)
 				sprite:ReplaceSpritesheet(i, "gfx/backdrop/custom/" .. sheet .. ".png")
 			end
 			sprite:LoadGraphics()
+			sprite:SetFrame(sprite:GetDefaultAnimation(), shape - 9)
 
-			if anim == "walls" then
-				sprite:Play(shape, true)
-			else
-				sprite:Play(sprite:GetDefaultAnimation(), true)
+
+		-- Walls / Corner details
+		else
+			for p = 1, 4 do
+				local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, type, 0, BackdropPositons[shape][p], Vector.Zero, nil):ToEffect()
+				backdrop:AddEntityFlags(flags)
+				backdrop.DepthOffset = -10000
+
+				local sprite = backdrop:GetSprite()
+				sprite:Load("gfx/backdrop/custom/" .. anim .. ".anm2", false)
+				for i = 0, sprite:GetLayerCount() do
+					sprite:ReplaceSpritesheet(i, "gfx/backdrop/custom/" .. sheet .. ".png")
+				end
+				sprite:LoadGraphics()
+
+				if anim == "walls" then
+					sprite:Play(shape, true)
+				else
+					sprite:Play(sprite:GetDefaultAnimation(), true)
+				end
+				sprite:SetFrame(p - 1)
 			end
-			sprite:SetFrame(p - 1)
 		end
 	end
 end
@@ -537,11 +535,11 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.IBackdropsPersistentEnti
 -- Get overlay decor positions
 function IBackdropsTopDecorPositions(shape)
 	local values = {}
-	
+
 	if shape == IV or shape == IIV then
 		table.insert(values, {0, 140, false}) -- left
 		table.insert(values, {1, 500, false}) -- right
-		
+
 	else
 		local thin = false
 		local extra = 0
@@ -550,7 +548,7 @@ function IBackdropsTopDecorPositions(shape)
 		elseif shape == LTL then
 			extra = 520
 		end
-		
+
 		table.insert(values, {0, -20 + extra, thin}) -- left
 		table.insert(values, {2, 180 + extra, thin}) -- extra left
 
@@ -559,13 +557,13 @@ function IBackdropsTopDecorPositions(shape)
 			table.insert(values, {3, 780, thin}) -- extra right
 			table.insert(values, {3, 980, thin}) -- extra right
 			table.insert(values, {1, 1180, thin}) -- right
-			
+
 		else
 			table.insert(values, {1, 660 + extra, thin}) -- right
 			table.insert(values, {3, 460 + extra, thin}) -- extra right
 		end
 	end
-	
+
 	for i, entry in pairs(values) do
 		IBackdropsSpawnTopDecor(entry[1], entry[2], entry[3])
 	end
@@ -579,7 +577,7 @@ function IBackdropsSpawnTopDecor(type, x, thin)
 			y = 140
 		end
 		local alt = math.random(0, 1) * 4
-		
+
 		local entity = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SPAWNER, 2727, Vector(x, y), Vector.Zero, nil):ToEffect()
 		entity.State = 2000 + type + alt
 	end
@@ -604,20 +602,20 @@ end
 
 -- Go through all grid entities and replace their spritesheet if they're a rock variant
 function IBackdropsGetGrids(spritesheet, checkType)
-	if config.customrocks == true then
+	if config.customrocks == true and not FiendFolio then
 		local room = game:GetRoom()
-		
+
 		for grindex = 0, room:GetGridSize() - 1 do
 			if room:GetGridEntity(grindex) ~= nil then
 				local grid = room:GetGridEntity(grindex)
 				local replace = false
-				
+
 				if checkType == nil and IBackdropsIsRock(grid:GetType()) == true then
 					replace = true
 				elseif grid:GetType() == checkType then
 					replace = true
 				end
-				
+
 				if replace == true then
 					local gridsprite = grid:GetSprite()
 					gridsprite:ReplaceSpritesheet(0, "gfx/grid/" .. spritesheet .. ".png")
@@ -646,14 +644,14 @@ end
 
 -- Replace crawlspace grids
 function IBackdropsCrawlspace(spritesheet)
-	if config.ucrawlspace == true then
+	if config.ucrawlspace == true and not FiendFolio and not CrawlspacesRebuilt then
 		local room = game:GetRoom()
 
 		for grindex = 0, room:GetGridSize() - 1 do
 			if room:GetGridEntity(grindex) ~= nil then
 				local gtype = room:GetGridEntity(grindex):GetType()
 				local gridsprite = room:GetGridEntity(grindex):GetSprite()
-				
+
 				if gtype == GridEntityType.GRID_WALL or gtype == GridEntityType.GRID_DECORATION or (gtype == GridEntityType.GRID_GRAVITY and gridsprite:GetFilename() ~= "") then
 					gridsprite:ReplaceSpritesheet(0, "gfx/grid/" .. spritesheet .. ".png")
 					gridsprite:ReplaceSpritesheet(1, "gfx/grid/" .. spritesheet .. ".png")
@@ -691,7 +689,7 @@ function mod:IBackdropsVoidOverlay()
 			static = Sprite()
 			static:Load("/gfx/backdrop/void_static.anm2", true)
         end
-		
+
 		static:Render(game:GetRoom():GetRenderSurfaceTopLeft(), Vector.Zero, Vector.Zero)
 		static:Play("Stage", false)
 		static:Update()
@@ -727,7 +725,7 @@ function IBackdropsDarkRoomBottom(shape, spritesheet)
 		table.insert(spawns, {Vector(652,  770), 4}) -- Right
 		table.insert(spawns, {Vector(1172, 490), 6}) -- Right extra
 	end
-	
+
 	for i, entry in pairs(spawns) do
 		local backdrop = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BACKDROP_DECORATION, 0, entry[1], Vector.Zero, nil):ToEffect()
 		backdrop:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR | EntityFlag.FLAG_RENDER_WALL | EntityFlag.FLAG_BACKDROP_DETAIL)
@@ -752,7 +750,7 @@ if ModConfigMenu then
 		Name = category,
 		Info = "Change settings for Improved Backdrops"
 	})
-	
+
 	-- General settings
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
@@ -763,7 +761,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable the mod's custom rocks. (default = on)"}
   	})
-	
+
   	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.tintedcompat end,
@@ -773,7 +771,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"(for the custom rocks option) Tinted rocks will not use custom sprites, allowing you to use tinted rock mods. (default = off)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.cooloverlays end,
@@ -783,7 +781,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable overlay details eg. Stalactites in caves. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.voidstatic end,
@@ -793,7 +791,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable the Void overlay. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "General", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.randvoid end,
@@ -804,7 +802,7 @@ if ModConfigMenu then
 	    Info = {"Enable/Disable randomized Void backdrops. (default = on)"}
   	})
 
-	
+
 	-- Unique special rooms
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
@@ -815,7 +813,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique devil rooms. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.uangel end,
@@ -825,7 +823,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique angel rooms. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.ucurse end,
@@ -835,7 +833,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique curse rooms. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.uchallenge end,
@@ -845,7 +843,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique challenge rooms. This also applies to boss rush. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.ucrawlspace end,
@@ -855,7 +853,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique crawlspaces. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "Special", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.ubmarket end,
@@ -865,8 +863,8 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique black markets. (default = on)"}
   	})
-	
-	
+
+
 	-- Unique boss / miniboss rooms
 	ModConfigMenu.AddSetting(category, "Boss", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
@@ -877,7 +875,7 @@ if ModConfigMenu then
 	    end,
 	    Info = {"Enable/Disable unique boss rooms. (default = on)"}
   	})
-	
+
 	ModConfigMenu.AddSetting(category, "Boss", {
     	Type = ModConfigMenu.OptionType.BOOLEAN,
 	    CurrentSetting = function() return config.customgreedrooms end,
