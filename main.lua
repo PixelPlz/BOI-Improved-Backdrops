@@ -3,6 +3,8 @@ local mod = ImprovedBackdrops
 local game = Game()
 local json = require("json")
 
+-- This code is terrible... I should rewrite it *again* someday.
+
 
 
 -- Backdrop enums
@@ -58,8 +60,8 @@ local config = {
 	customrocks 	 = true,
 	tintedcompat 	 = false,
 	cooloverlays 	 = true,
-	voidstatic 		 = true,
-	randvoid 		 = true,
+	voidstatic 		 = false,
+	randvoid 		 = false,
 	-- Special rooms
 	udevil 			 = true,
 	uangel 			 = true,
@@ -115,7 +117,9 @@ function mod:IBackdropsEnterRoom()
 
 	-- Check if boss room is valid for custom walls
 	function IBackdropsIsValidBossRoom()
-		if config.custombossrooms == true and (rtype == RoomType.ROOM_BOSS or rtype == RoomType.ROOM_MINIBOSS) and stage ~= LevelStage.STAGE7 and mod:CheckForRev() == false then
+		if config.custombossrooms == true
+		and (rtype == RoomType.ROOM_BOSS or rtype == RoomType.ROOM_MINIBOSS) and stage ~= LevelStage.STAGE7
+		and (not StageAPI or not StageAPI.InNewStage()) then
 			return true
 		else
 			return false
@@ -335,7 +339,7 @@ function mod:IBackdropsEnterRoom()
 							if shape == IH or shape == IIH then
 								problemsprite:SetFrame(1)
 							elseif shape == IV or shape == IIV then
-								problemsprite:SetFrame(2) -- Why don't the light layers change frame??
+								problemsprite:SetFrame(2)
 							end
 						end
 					end
@@ -431,8 +435,6 @@ function mod:IBackdropsEnterRoom()
 			IBackdropsSpawnDecorGrids(shape)
 		end
 	end
-
-	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.IBackdropsEnterRoom)
 
@@ -587,15 +589,20 @@ end
 
 function IBackdropsChangeBG(id, bloody, bloodtype)
 	if bloody == true then
-		local bloodID = BackdropType.BASEMENT
-		if bloodtype == "dark" then
-			bloodID = BackdropType.CORPSE_ENTRANCE
+		local bloodID = bloodtype == "dark" and BackdropType.CORPSE_ENTRANCE or BackdropType.BASEMENT
+		if REPENTOGON then
+			game:GetRoom():SetBackdropType(bloodID, 1)
+		else
+			game:ShowHallucination(0, bloodID)
 		end
-		game:ShowHallucination(0, bloodID)
+	end
+
+	if REPENTOGON then
+		game:GetRoom():SetBackdropType(id, 1)
+	else
+		game:ShowHallucination(0, id)
 		SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 	end
-	game:ShowHallucination(0, id)
-	SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 end
 
 
@@ -610,7 +617,8 @@ function IBackdropsGetGrids(spritesheet, checkType)
 				local grid = room:GetGridEntity(grindex)
 				local replace = false
 
-				if checkType == nil and IBackdropsIsRock(grid:GetType()) == true then
+				-- Replace it for rocks if not specified
+				if checkType == nil and grid:ToRock() then
 					replace = true
 				elseif grid:GetType() == checkType then
 					replace = true
@@ -625,19 +633,6 @@ function IBackdropsGetGrids(spritesheet, checkType)
 					gridsprite:LoadGraphics()
 				end
 			end
-		end
-	end
-end
-
--- Check if the grid entity is a rock variant
-function IBackdropsIsRock(t)
-	if config.tintedcompat == true then
-		if t == 2 or t == 3 or t == 5 or t == 6 or t == 22 or t == 24 or t == 25 or t == 26 or t == 27 then
-			return true
-		end
-	else
-		if t == 2 or t == 3 or t == 4 or t == 5 or t == 6 or t == 22 or t == 24 or t == 25 or t == 26 or t == 27 then
-			return true
 		end
 	end
 end
@@ -789,7 +784,7 @@ if ModConfigMenu then
 	    OnChange = function(bool)
 	    	config.voidstatic = bool
 	    end,
-	    Info = {"Enable/Disable the Void overlay. (default = on)"}
+	    Info = {"Enable/Disable the Void overlay. (default = off)"}
   	})
 
 	ModConfigMenu.AddSetting(category, "General", {
@@ -799,7 +794,7 @@ if ModConfigMenu then
 	    OnChange = function(bool)
 	    	config.randvoid = bool
 	    end,
-	    Info = {"Enable/Disable randomized Void backdrops. (default = on)"}
+	    Info = {"Enable/Disable randomized Void backdrops. (default = off)"}
   	})
 
 
