@@ -216,13 +216,13 @@ function mod:IBackdropsEnterRoom()
 				IBackdropsCustomBG("devil_1")
 
 			elseif config.ucurse == true and rtype == RoomType.ROOM_CURSE and mod:CheckForRev() == false then
-				IBackdropsChangeBG(bg, true, "dark")
+				IBackdropsChangeBG(bg, true, true)
 				IBackdropsCustomBG("curse", "corner_extras")
 				IBackdropsCustomBG("curse", "corner_extras_curse", true)
 
 			elseif config.uchallenge == true and (rtype == RoomType.ROOM_CHALLENGE or rtype == RoomType.ROOM_BOSSRUSH) and mod:CheckForRev() == false and not FiendFolio then
 				if stage % 2 == 0 then
-					IBackdropsChangeBG(bg, true, "dark")
+					IBackdropsChangeBG(bg, true, true)
 				end
 				IBackdropsCustomBG("challenge_1")
 
@@ -323,7 +323,7 @@ function mod:IBackdropsEnterRoom()
 				-- Remove decoration sprites that don't fit
 				for i,problematics in pairs(Isaac.GetRoomEntities()) do
 					if problematics.Type == EntityType.ENTITY_EFFECT and problematics.Variant == EffectVariant.BACKDROP_DECORATION then
-						if problematics:GetSprite():GetFilename() ~= "gfx/backdrop/03x_mines_lanterns.anm2" and problematics:GetSprite():GetFilename() ~= "gfx/backdrop/03x_mines_lanterns_dark.anm2" then	
+						if problematics:GetSprite():GetFilename() ~= "gfx/backdrop/03x_mines_lanterns.anm2" and problematics:GetSprite():GetFilename() ~= "gfx/backdrop/03x_mines_lanterns_dark.anm2" then
 							problematics:Remove()
 						end
 					end
@@ -335,7 +335,7 @@ function mod:IBackdropsEnterRoom()
 					if problematics.Type == EntityType.ENTITY_EFFECT and problematics.Variant == EffectVariant.BACKDROP_DECORATION then
 						local problemsprite = problematics:GetSprite()
 
-						if problemsprite:GetFilename() == "gfx/backdrop/03x_mines_bg_details.anm2" or problemsprite:GetFilename() == "gfx/backdrop/03x_mines_bg_details_dark.anm2" then	
+						if problemsprite:GetFilename() == "gfx/backdrop/03x_mines_bg_details.anm2" or problemsprite:GetFilename() == "gfx/backdrop/03x_mines_bg_details_dark.anm2" then
 							if shape == IH or shape == IIH then
 								problemsprite:SetFrame(1)
 							elseif shape == IV or shape == IIV then
@@ -394,7 +394,7 @@ function mod:IBackdropsEnterRoom()
 		elseif bg == BackdropType.GEHENNA then
 			-- Post-Mom's Heart
 			if game:GetStateFlag(GameStateFlag.STATE_MAUSOLEUM_HEART_KILLED) and stage == LevelStage.STAGE3_2 then
-				IBackdropsChangeBG(BackdropType.CORPSE_ENTRANCE_GEHENNA, true, "dark")
+				IBackdropsChangeBG(BackdropType.CORPSE_ENTRANCE_GEHENNA, true, true)
 				-- Remove wall details
 				for i,problematics in pairs(Isaac.GetRoomEntities()) do
 					if problematics.Type == EntityType.ENTITY_EFFECT and problematics.Variant == EffectVariant.BACKDROP_DECORATION then
@@ -587,9 +587,9 @@ end
 
 
 
-function IBackdropsChangeBG(id, bloody, bloodtype)
+function IBackdropsChangeBG(id, bloody, dark)
 	if bloody == true then
-		local bloodID = bloodtype == "dark" and BackdropType.CORPSE_ENTRANCE or BackdropType.BASEMENT
+		local bloodID = dark and BackdropType.CORPSE_ENTRANCE or BackdropType.BASEMENT
 		if REPENTOGON then
 			game:GetRoom():SetBackdropType(bloodID, 1)
 		else
@@ -597,7 +597,7 @@ function IBackdropsChangeBG(id, bloody, bloodtype)
 		end
 	end
 
-	if REPENTOGON then
+	if REPENTOGON and id then
 		game:GetRoom():SetBackdropType(id, 1)
 	else
 		game:ShowHallucination(0, id)
