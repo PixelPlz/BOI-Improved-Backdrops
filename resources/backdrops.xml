@@ -501,9 +501,9 @@
 		holeinwall	= "door_08_holeinwall_depths.png"
 	/>
 	
-	<backdrop id="49"  gfx="0Ex_Isaacs_Bedroom.png" walls="1" wallvariants="4" floors="1" floorvariants="1" props = "props_0ex_isaacs_bedroom.anm2" />
-	<backdrop id="50"  gfx="0Fx_Hallway.png" walls="1" wallvariants="3" floors="1" floorvariants="1" nfloorgfx = "0Fx_Hallway_Nfloor.png" props = "" />
-	<backdrop id="51"  gfx="0Gx_Moms_Bedroom.png" walls="1" wallvariants="3" floors="1" floorvariants="1" props	= "" />
+	<backdrop id="49"  gfx="0Ex_Isaacs_Bedroom.png" walls="1" wallvariants="4" floors="1" floorvariants="1" props="props_0ex_isaacs_bedroom.anm2" />
+	<backdrop id="50"  gfx="0Fx_Hallway.png" walls="1" wallvariants="3" floors="1" floorvariants="1" nfloorgfx = "0Fx_Hallway_Nfloor.png" props="" />
+	<backdrop id="51"  gfx="0Gx_Moms_Bedroom.png" walls="1" wallvariants="3" floors="1" floorvariants="1" props="" />
 	<backdrop id="52"  gfx="house_closet.anm2" props="props_0ex_isaacs_bedroom.anm2" />
 	<backdrop id="53"  gfx="house_closet_b.anm2" props="props_05_depths.anm2" />
 	<backdrop id="54"  gfx="house_dogma.anm2" props="" walls="0" wallvariants="0" />
@@ -546,5 +546,8 @@
 		pit			= "grid_pit_depths.png"
 		bridge		= "grid_bridge_depths.png"
 	/>
+
+	<backdrop id="61" gfx="deathmatch.png" walls="2" wallvariants="2" floors="1" floorvariants="1" />
+	<backdrop id="62" gfx="portal_bedroom.png" walls="1" wallvariants="4" floors="1" floorvariants="1" props="props_0ex_isaacs_bedroom.anm2" />
 <!-- REPENTANCE END -->
 </backdrops>
