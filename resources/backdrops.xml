@@ -131,6 +131,7 @@
 		pit			= "grid_pit_utero.png"
 		bridge		= "grid_bridge_utero.png"
 		door		= "door_01_utero.png"
+		spikes		= "grid_spikes_utero.png"
 		holeinwall	= "door_08_holeinwall_utero.png"
 	/>
 	
@@ -144,6 +145,7 @@
 		waterpit	= "grid_pit_blood_scarredwomb.png"
 		bridge		= "grid_bridge_scarredwomb.png"
 		door		= "door_28_scarredroomdoor.png"
+		spikes		= "grid_spikes_scarred.png"
 		holeinwall	= "door_08_holeinwall_womb.png"
 		waterpitsmode	= "2"
 	/>
@@ -342,6 +344,7 @@
 		waterpit	= "FFF/grid_pit_blood_corpse.png"
 		bridge		= "grid_bridge_corpse.png"
 		door		= "door_01_corpsedoor.png"
+		spikes		= "grid_spikes_corpse.png"
 		holeinwall	= "door_08_holeinwall_corpse.png"
 		waterpitsmode	= "1"
 	/>
@@ -435,6 +438,7 @@
 		waterpit	= "FFF/grid_pit_blood_corpse2.png"
 		bridge		= "grid_bridge_corpse2.png"
 		door		= "door_01_corpse2door.png"
+		spikes		= "grid_spikes_corpse2.png"
 		holeinwall	= "door_08_holeinwall_depths.png"
 		waterpitsmode	= "1"
 	/>
@@ -448,6 +452,7 @@
 		pit			= "grid_pit_corpse3.png"
 		bridge		= "grid_bridge_corpse3.png"
 		door		= "door_01_corpse3door.png"
+		spikes		= "grid_spikes_utero.png"
 		holeinwall	= "door_08_holeinwall.png"
 	/>
 	
